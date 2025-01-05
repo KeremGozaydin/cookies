@@ -1,0 +1,34 @@
+# Node modules
+frontend/node_modules/
+
+# SvelteKit build output
+frontend/.svelte-kit/
+frontend/build/
+
+# Temporary files
+*.log
+*.tmp
+*.temp
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE specific files
+.vscode/
+.idea/
+
+# MacOS specific files
+.DS_Store
+
+# Dependency directories
+.pnp
+.pnp.js
+
+# TypeScript cache
+*.tsbuildinfo
+
+# SvelteKit specific
+frontend/.svelte-kit/output/
+backend/__pycache__/
