@@ -31,7 +31,7 @@ class CookieOptimizer:
             xx, yy = np.meshgrid(x, y)
             grid_positions = np.column_stack((xx.ravel(), yy.ravel()))
             
-            kmeans = KMeans(n_clusters=num_cookies, random_state=None)
+            kmeans = KMeans(n_clusters=num_cookies, random_state=0)
             kmeans.fit(grid_positions)
             current_positions = kmeans.cluster_centers_
             

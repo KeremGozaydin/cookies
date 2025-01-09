@@ -7,13 +7,10 @@ import os
 
 load_dotenv()
 
-class TrayConfig(BaseModel):
-    width: float = Field(ge=10, le=100, description="Tray width in cm")
-    height: float = Field(ge=10, le=100, description="Tray height in cm")
-
 class OptimizeRequest(BaseModel):
-    tray: TrayConfig
-    diameter: float = Field(ge=1, le=15, description="Cookie diameter in cm")
+    tray_width: float = Field(ge=10, le=100, description="Tray width in cm")
+    tray_length: float = Field(ge=10, le=100, description="Tray height in cm")
+    cookie_diameter: float = Field(ge=1, le=15, description="Cookie diameter in cm")
     num_cookies: int = Field(ge=1, le=20, description="Number of cookies to place")
 
 class OptimizeResponse(BaseModel):
@@ -28,9 +25,9 @@ def optimize_cookies():
         return jsonify({'error': 'Invalid API key'}), 401
     try:
         data = OptimizeRequest(**request.get_json())
-        optimizer = CookieOptimizer(data.tray.width, data.tray.height)
+        optimizer = CookieOptimizer(data.tray_width, data.tray_length)
         positions, min_distance = optimizer.optimize_positions(
-            data.diameter, 
+            data.cookie_diameter, 
             data.num_cookies
         )
         
@@ -42,11 +39,11 @@ def optimize_cookies():
         return jsonify(response.dict())
         
     except ValidationError as e:
-        return jsonify({'error': str(e)}), 400
+        return jsonify({'errors': e.errors()}), 400
     except ValueError as e:
-        return jsonify({'error': str(e)}), 400
+        return jsonify({'errors': e.errors()}), 400
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'errors': e}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)

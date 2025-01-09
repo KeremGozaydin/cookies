@@ -1,3 +1,19 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+body {
+    @apply flex justify-center w-screen h-screen bg-cookie-gradient
+}
+
+.cookie-form {
+    @apply flex items-center flex-col mt-12 rounded p-4 bg-cookie-beige border-cookie-chocolate border-2
+}
+
+.cookie-form input {
+    @apply w-64 p-1 border-2 border-cookie-chocolate rounded bg-cookie-white
+}
+
+.cookie-form button[type="submit"] {
+    @apply w-1/2 mt-4 p-2 bg-cookie-chocolate text-cookie-white rounded
+}
